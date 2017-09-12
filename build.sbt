@@ -18,3 +18,4 @@ lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
 lazy val spdomain_jvm = spdomain.jvm
 lazy val spdomain_js = spdomain.js
 
+useGpg := true
