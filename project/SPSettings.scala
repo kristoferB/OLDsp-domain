@@ -90,10 +90,22 @@ object SPSettings {
     testFrameworks += new TestFramework("utest.runner.Framework")
   )
 
+  lazy val mitLicense = Seq("MIT License" -> url("https://opensource.org/licenses/MIT"))
 
+  lazy val githubSP = Some(url("https://github.com/sequenceplanner"))
 
+  lazy val devAlexander = Developer(
+    id    = "aleastChs",
+    name  = "Alexander Åstrand",
+    email = "aleast@student.chalmers.se",
+    url   = url("https://github.com/aleastChs")
+  )
 
-
-
+  lazy val scmSPDomain = Some(
+    ScmInfo(
+      url("https://github.com/sequenceplanner/sp-domain"),
+      "scm:git@github.com:sequenceplanner/sp-domain.git"
+    )
+  )
 
 }
