@@ -1,23 +1,20 @@
 import SPSettings._
 import PublishingSettings._
 
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "1.1")
-
 lazy val root = project.in( file(".") )
   .settings(publishing)
-  .settings(
-    // PUBLISHING
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if (isSnapshot.value)
-        Some("snapshots" at nexus + "content/repositories/snapshots")
-      else
-        Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-    },
 
-    publishArtifact in Test := false
-  )
+// PUBLISHING
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+}
+publishArtifact in Test := false
 
+// SP-Domain
 lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
   .settings(name := "spdomain")
   .settings(commonSettings)
