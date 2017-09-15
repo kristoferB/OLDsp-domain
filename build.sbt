@@ -5,13 +5,35 @@ lazy val root = project.in( file(".") )
   .settings(publishing)
 
 // PUBLISHING
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
+pomIncludeRepository := { _ => false }
+// EXTRA POM
+pomExtra :=
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+    <developers>
+      <developer>
+        <id>aleastChs</id>
+        <name>Alexander Åstrand (@chalmersUniversity)</name>
+        <url>https://github.com/aleastChs/</url>
+      </developer>
+    </developers>
+publishTo := Some(
   if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
+    Opts.resolver.sonatypeSnapshots
   else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
+    Opts.resolver.sonatypeStaging
+)
+//publishTo := {
+//  val nexus = "https://oss.sonatype.org/"
+//  if (isSnapshot.value)
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
+//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+//}
 publishArtifact in Test := false
 
 // SP-Domain
