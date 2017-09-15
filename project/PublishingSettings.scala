@@ -5,6 +5,7 @@ import sbt.Keys.{licenses, pomIncludeRepository, publishMavenStyle, scmInfo, _}
 object PublishingSettings {
   lazy val projectName = "sequenceplanner"
   lazy val orgName = "com.github"+ projectName
+  lazy val spDomainVersion = "0.0.1"
 
   lazy val mitLicense = Seq("MIT License" -> url("https://opensource.org/licenses/MIT"))
 
@@ -25,12 +26,10 @@ object PublishingSettings {
   )
 
   lazy val publishing = Seq(
+    version := spDomainVersion,
     organization := orgName,
     // use gpg - command line
-    useGpg := true,
-    // let’s make sure no repositories show up in the POM file and
-    //  remove the repositories for optional dependencies in our artifact
-    pomIncludeRepository := { _ => false }
+    useGpg := true
   )
 
 }
