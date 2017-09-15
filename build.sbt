@@ -3,6 +3,7 @@ import PublishingSettings._
 
 lazy val root = project.in( file(".") )
   .settings(publishing)
+  .settings(name := "sp-domain")
 
 // PUBLISHING
 pomIncludeRepository := { _ => false }
