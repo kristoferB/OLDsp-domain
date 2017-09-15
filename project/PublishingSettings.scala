@@ -30,15 +30,7 @@ object PublishingSettings {
     useGpg := true,
     // let’s make sure no repositories show up in the POM file and
     //  remove the repositories for optional dependencies in our artifact
-    pomIncludeRepository := { _ => false },
-    licenses := mitLicense,
-    homepage := githubSP,
-    scmInfo := scmSPDomain,
-    developers := List(
-      // student
-      devAlexander
-    ),
-    publishMavenStyle := true
+    pomIncludeRepository := { _ => false }
   )
 
 }
