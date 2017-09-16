@@ -7,7 +7,6 @@ object SPSettings {
   lazy val organizationName = "sequenceplanner"
   lazy val projectName = "spdomain"
 
-
   /** Options for the scala compiler */
   lazy val scalacOpt = Seq(
     //"-Xlint",

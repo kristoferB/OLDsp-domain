@@ -1,41 +1,39 @@
 import SPSettings._
 import PublishingSettings._
+import sbt.Keys.{pomExtra, pomIncludeRepository}
 
 lazy val root = project.in( file(".") )
-  .settings(publishing)
-  .settings(name := infoPub.projectName)
+  .settings(
+    name := infoPub.projectName,
+    organization := infoPub.orgNameFull,
+    organizationHomepage := Some(new URL("http://github.com/sequenceplanner")),
+    description := "A sbt library for SP-Domain",
+    scalaVersion := versions.scala,
+    version := infoPub.spDomainVersion,
+    // use gpg - command line
+    useGpg := true,
+    // PUBLISHING
+    pomIncludeRepository := { _ => false },
+    // EXTRA POM
+    pomExtra :=
+      <licenses>
+        <license>
+          <name>MIT License</name>
+          <url>https://opensource.org/licenses/MIT</url>
+        </license>
+      </licenses>
+        <developers>
+          <developer>
+            <id>aleastChs</id>
+            <name>Alexander Åstrand (@chalmersUniversity)</name>
+            <url>https://github.com/aleastChs/</url>
+          </developer>
+        </developers>,
 
-// PUBLISHING
-pomIncludeRepository := { _ => false }
-// EXTRA POM
-pomExtra :=
-  <licenses>
-    <license>
-      <name>MIT License</name>
-      <url>https://opensource.org/licenses/MIT</url>
-    </license>
-  </licenses>
-    <developers>
-      <developer>
-        <id>aleastChs</id>
-        <name>Alexander Åstrand (@chalmersUniversity)</name>
-        <url>https://github.com/aleastChs/</url>
-      </developer>
-    </developers>
-publishTo := Some(
-  if (isSnapshot.value)
-    Opts.resolver.sonatypeSnapshots
-  else
-    Opts.resolver.sonatypeStaging
+        publishArtifact in Test := false
 )
-//publishTo := {
-//  val nexus = "https://oss.sonatype.org/"
-//  if (isSnapshot.value)
-//    Some("snapshots" at nexus + "content/repositories/snapshots")
-//  else
-//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-//}
-publishArtifact in Test := false
+
+
 
 
 // SP-Domain

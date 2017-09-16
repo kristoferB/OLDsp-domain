@@ -1,8 +1,5 @@
-import com.typesafe.sbt.SbtPgp.autoImportImpl.useGpg
-import sbt.{Def, Developer, ScmInfo, url}
-import sbt.Keys._
 
-import SPSettings._
+import sbt.{ Developer, ScmInfo, url}
 
 object PublishingSettings {
 
@@ -42,13 +39,4 @@ object PublishingSettings {
       )
     )
   }
-
-  lazy val publishing = Seq(
-    scalaVersion := versions.scala,
-    version := infoPub.spDomainVersion,
-    organization := infoPub.orgNameFull,
-    // use gpg - command line
-    useGpg := true
-  )
-
 }
