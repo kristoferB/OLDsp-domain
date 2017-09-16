@@ -3,10 +3,7 @@ import PublishingSettings._
 
 lazy val root = project.in( file(".") )
   .settings(publishing)
-  .settings(
-    name := "sp-domain",
-    scalaVersion := "2.12.2"
-  )
+  .settings(name := infoPub.projectName)
 
 // PUBLISHING
 pomIncludeRepository := { _ => false }
@@ -40,9 +37,13 @@ publishTo := Some(
 //}
 publishArtifact in Test := false
 
+
 // SP-Domain
 lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
-  .settings(name := "spdomain")
+  .settings(
+    name := SPSettings.projectName,
+    version := PublishingSettings.infoPub.spDomainVersion
+  )
   .settings(commonSettings)
   .settings(libraryDependencies ++= domainDependencies.value)
   .jvmSettings(
