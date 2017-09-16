@@ -13,3 +13,4 @@ scmInfo := infoPub.scmSPDomain
 developers := List(
   infoPub.devAlexander
 )
+description := infoPub.description

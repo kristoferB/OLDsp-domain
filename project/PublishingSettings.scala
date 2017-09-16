@@ -7,6 +7,9 @@ import SPSettings._
 object PublishingSettings {
 
   object infoPub {
+    // Description
+    lazy val description = "THIS IS OUR DOMAIN FOR SP"
+
     // Name
     lazy val organizationName = "sequenceplanner"
     lazy val comString = "com"
