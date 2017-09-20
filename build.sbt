@@ -14,18 +14,8 @@ lazy val root = project.in( file(".") )
     useGpg := true,
     // PUBLISHING
     pomIncludeRepository := { _ => false },
-    // EXTRA POM
-    pomExtra :=
-        <developers>
-          <developer>
-            <id>aleastChs</id>
-            <name>Alexander Åstrand (@chalmersUniversity)</name>
-            <url>https://github.com/aleastChs/</url>
-          </developer>
-        </developers>,
-
-        publishArtifact in Test := false
-)
+    publishArtifact in Test := false
+  )
 
 
 
