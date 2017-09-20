@@ -16,12 +16,6 @@ lazy val root = project.in( file(".") )
     pomIncludeRepository := { _ => false },
     // EXTRA POM
     pomExtra :=
-      <licenses>
-        <license>
-          <name>MIT License</name>
-          <url>https://opensource.org/licenses/MIT</url>
-        </license>
-      </licenses>
         <developers>
           <developer>
             <id>aleastChs</id>
