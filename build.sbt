@@ -24,7 +24,13 @@ publishTo := Some(
   else
     Opts.resolver.sonatypeStaging
 )
-
+//
+//pomExtra :=
+//  <server>
+//    <id>${server}</id>
+//    <username>9jd4Fctu</username>
+//    <password>ps6I5annzgxsGo5N39vIqV4BvHM1Tp4FnUjMljmQwLtm</password>
+//  </server>
 // SP-Domain
 lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
   .settings(
