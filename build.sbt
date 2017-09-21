@@ -17,8 +17,13 @@ lazy val root = project.in( file(".") )
     publishArtifact in Test := false
   )
 
-
-
+// publishing info
+publishTo := Some(
+  if (isSnapshot.value)
+    Opts.resolver.sonatypeSnapshots
+  else
+    Opts.resolver.sonatypeStaging
+)
 
 // SP-Domain
 lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
