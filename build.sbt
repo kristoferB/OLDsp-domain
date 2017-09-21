@@ -1,44 +1,68 @@
 import SPSettings._
-import PublishingSettings._
-import sbt.Keys.{pomExtra, pomIncludeRepository}
 
-lazy val root = project.in( file(".") )
-  .settings(
-    name := infoPub.projectName,
-    organization := infoPub.orgNameFull,
-    organizationHomepage := Some(new URL("http://github.com/sequenceplanner")),
-    description := "A sbt library for SP-Domain",
-    scalaVersion := versions.scala,
-    version := infoPub.spDomainVersion,
-    // use gpg - command line
-    useGpg := true,
-    // PUBLISHING
+//import sbt.Keys.{pomExtra, pomIncludeRepository}
+
+
+lazy val buildSettings = Seq(
+  name         := "sp-domain",
+  description  := "The domain and logic to work with it",
+  version      := "0.0.1-SNAPSHOT",
+  organization := "org.github.sequenceplanner",
+  homepage     := Some(new URL("http://github.com/sequenceplanner")),
+  licenses     := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
+
+  scalaVersion       := versions.scala,
+  
+  scalacOptions ++= scalacOpt,
+
+  useGpg := true,
+
+  publishArtifact in Test := false,
+  publishMavenStyle := true,
+  publishTo := {
+    val nexus = "https://oss.sonatype.org/"
+    if (isSnapshot.value)
+      Opts.resolver.sonatypeSnapshots
+    else
+      Opts.resolver.sonatypeStaging
+    },
+    libraryDependencies ++= domainDependencies.value,
     pomIncludeRepository := { _ => false },
-    publishArtifact in Test := false
+    sonatypeProfileName := "org.github.sequenceplanner",
+scmInfo := Some(
+      ScmInfo(
+        url("https://github.com/sequenceplanner/sp-domain"),
+        "scm:git@github.com:sequenceplanner/sp-domain.git"
+      )
+    ),
+developers := List(
+  Developer(
+      id    = "aleastChs",
+      name  = "Alexander Åstrand",
+      email = "aleast@student.chalmers.se",
+      url   = url("https://github.com/aleastChs")
+    )
   )
 
-// publishing info
-publishTo := Some(
-  if (isSnapshot.value)
-    Opts.resolver.sonatypeSnapshots
-  else
-    Opts.resolver.sonatypeStaging
-)
-//
-//pomExtra :=
-//  <server>
-//    <id>${server}</id>
-//    <username>9jd4Fctu</username>
-//    <password>ps6I5annzgxsGo5N39vIqV4BvHM1Tp4FnUjMljmQwLtm</password>
-//  </server>
-// SP-Domain
-lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
-  .settings(
-    name := SPSettings.projectName,
-    version := PublishingSettings.infoPub.spDomainVersion
-  )
+
+lazy val root = project.in(file("."))
+  .aggregate(spdomain_jvm, spdomain_js)
   .settings(commonSettings)
-  .settings(libraryDependencies ++= domainDependencies.value)
+  .settings(buildSettings)
+  .settings(
+    name                 := "sp-domain",
+    // No, SBT, we don't want any artifacts for root.
+    // No, not even an empty jar.
+    publish              := {},
+    publishLocal         := {},
+    publishArtifact      := false,
+    Keys.`package`       := file("")
+    )
+
+
+lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("."))
+  .settings(commonSettings)
+  .settings(buildSettings)
   .jvmSettings(
     libraryDependencies += "org.joda" % "joda-convert" % "1.8.2"
   )
@@ -48,4 +72,3 @@ lazy val spdomain = (crossProject.crossType(CrossType.Pure) in file("spdomain"))
 
 lazy val spdomain_jvm = spdomain.jvm
 lazy val spdomain_js = spdomain.js
-

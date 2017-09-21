@@ -18,7 +18,7 @@ object PublishingSettings {
     lazy val projectName = "sp-domain"
 
     // Version
-    lazy val spDomainVersion = "0.0.1"
+    lazy val spDomainVersion = "0.0.1-SNAPSHOT"
 
     // General Pub INFO
     lazy val mitLicense = Seq("MIT License" -> url("https://opensource.org/licenses/MIT"))
