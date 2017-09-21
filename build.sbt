@@ -7,7 +7,7 @@ lazy val buildSettings = Seq(
   name         := "sp-domain",
   description  := "The domain and logic to work with it",
   version      := "0.0.1-SNAPSHOT",
-  organization := "org.github.sequenceplanner",
+  organization := "com.github.sequenceplanner",
   homepage     := Some(new URL("http://github.com/sequenceplanner")),
   licenses     := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
 
@@ -22,13 +22,13 @@ lazy val buildSettings = Seq(
   publishTo := {
     val nexus = "https://oss.sonatype.org/"
     if (isSnapshot.value)
-      Opts.resolver.sonatypeSnapshots
+      Some("snapshots" at nexus + "content/repositories/snapshots")
     else
-      Opts.resolver.sonatypeStaging
-    },
+      Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+  },
     libraryDependencies ++= domainDependencies.value,
     pomIncludeRepository := { _ => false },
-    sonatypeProfileName := "org.github.sequenceplanner",
+    sonatypeProfileName := "com.github.sequenceplanner",
 scmInfo := Some(
       ScmInfo(
         url("https://github.com/sequenceplanner/sp-domain"),
@@ -43,6 +43,7 @@ developers := List(
       url   = url("https://github.com/aleastChs")
     )
   )
+)
 
 
 lazy val root = project.in(file("."))
